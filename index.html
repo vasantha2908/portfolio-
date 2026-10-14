@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vasantha Reena · CS Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <style>
+    /* ---------- RESET & GLOBAL ---------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #FAF8F5;
+      font-family: 'Inter', sans-serif;
+      color: #1A1A1A;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #EFECE6;
+      --card-white: #FFFFFF;
+      --text-dark: #1A1A1A;
+      --text-soft: #2D2A26;
+      --outline: #d9d2c5;
+      --beige-light: #F5F2EB;
+      --beige-deep: #EBE6DC;
+      --charcoal: #2D2A26;
+    }
+    .serif { font-family: 'DM Serif Display', serif; font-weight: 400; letter-spacing: -0.02em; }
+    .giant-outline {
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      color: transparent;
+      -webkit-text-stroke: 1.5px rgba(45, 42, 38, 0.12);
+      letter-spacing: -0.04em;
+      pointer-events: none;
+      user-select: none;
+      position: absolute;
+      white-space: nowrap;
+      line-height: 0.9;
+    }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+    section { position: relative; }
+
+    /* ---------- HERO ---------- */
+    .hero {
+      min-height: 100vh; display: flex; flex-direction: column;
+      position: relative; background: #FAF8F5; overflow: hidden;
+    }
+    .hero-video-bg {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; opacity: 0.8;
+      z-index: 0; pointer-events: none;
+    }
+    .audio-toggle {
+      position: absolute; z-index: 10; left: 2rem; bottom: 2rem;
+      padding: 0.7rem 1rem; border: 1px solid rgba(45, 42, 38, 0.45);
+      border-radius: 50px; background: rgba(250, 248, 245, 0.85);
+      color: var(--text-dark); font: inherit; font-size: 0.8rem;
+      font-weight: 600; cursor: pointer;
+    }
+    .audio-toggle:hover { background: #fff; }
+    .hero-overlay-text {
+      position: absolute; inset: 0; display: flex;
+      align-items: center; justify-content: center; z-index: 1; pointer-events: none;
+    }
+    .hero-overlay-text span { font-size: clamp(4rem, 18vw, 16rem); white-space: nowrap; line-height: 1; }
+    .top-bar {
+      position: relative; z-index: 10; display: flex; justify-content: space-between;
+      align-items: center; padding: 1.8rem 2rem; max-width: 1280px;
+      margin: 0 auto; width: 100%;
+    }
+    .logo {
+      font-weight: 700; font-size: 1rem; letter-spacing: -0.02em;
+      text-transform: uppercase; color: var(--text-dark);
+    }
+    .nav-links { display: flex; gap: 2rem; font-size: 0.85rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em; }
+    .nav-links a { color: var(--text-dark); text-decoration: none; opacity: 0.7; transition: opacity 0.2s; }
+    .nav-links a:hover { opacity: 1; }
+    .hero-content {
+      position: absolute; z-index: 5; right: clamp(1.5rem, 7vw, 6rem);
+      bottom: clamp(2rem, 8vh, 5rem); width: min(44rem, calc(100% - 3rem));
+      display: flex; flex-direction: column; align-items: flex-end;
+      text-align: right; padding: 0;
+    }
+    .hero-sub {
+      font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: #4a4540; margin-bottom: 0.8rem; font-weight: 500;
+    }
+    .hero-title {
+      font-size: clamp(2.4rem, 4.5vw, 4rem); font-weight: 700; line-height: 1.05;
+      letter-spacing: -0.03em; color: var(--text-dark); margin-bottom: 1.5rem; max-width: 700px;
+    }
+    .hero-title .light { font-weight: 300; opacity: 0.7; }
+    .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+    .pill-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--charcoal); color: #fff; font-size: 0.9rem; font-weight: 500;
+      padding: 0.9rem 2rem; border-radius: 50px; text-decoration: none;
+      letter-spacing: 0.01em; transition: background 0.25s, transform 0.2s;
+      border: 1px solid var(--charcoal);
+    }
+    .pill-btn:hover { background: #3f3a34; transform: translateY(-2px); }
+    .pill-btn.outline {
+      background: transparent; color: var(--text-dark);
+      border: 1px solid rgba(45, 42, 38, 0.3);
+    }
+    .pill-btn.outline:hover { background: rgba(45, 42, 38, 0.04); border-color: var(--text-dark); }
+
+    /* ---------- ABOUT / ID BADGE ---------- */
+    .about-section {
+      background: linear-gradient(145deg, #F5F2EB 0%, #EBE6DC 100%);
+      padding: 6rem 0 7rem; position: relative; overflow: hidden;
+    }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem;
+      align-items: center; position: relative; z-index: 2;
+    }
+    .badge-wrapper {
+      display: flex; justify-content: center; align-items: flex-start;
+      position: relative; padding-top: 2rem;
+    }
+    .lanyard-strap {
+      position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
+      width: 38px; height: 170px; background: #3d3a36;
+      border-radius: 10px 10px 0 0; overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1); z-index: 5;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .lanyard-track {
+      display: flex; flex-direction: column; align-items: center;
+      animation: scrollStrap 5s linear infinite; will-change: transform;
+    }
+    .lanyard-text-item {
+      writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg);
+      color: #f0ebe4; font-size: 0.62rem; font-weight: 600;
+      letter-spacing: 0.35em; text-transform: uppercase; white-space: nowrap;
+      line-height: 1; padding: 1.2rem 0; flex-shrink: 0;
+    }
+    @keyframes scrollStrap {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-50%); }
+    }
+    .badge-card {
+      width: 300px; height: 440px; perspective: 1500px;
+      cursor: pointer; position: relative; margin-top: 95px;
+    }
+    .badge-inner {
+      width: 100%; height: 100%; transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+      transform-style: preserve-3d; border-radius: 24px;
+      box-shadow: 0 30px 40px -20px rgba(0,0,0,0.3);
+    }
+    .badge-card.flipped .badge-inner { transform: rotateY(180deg); }
+    .badge-front, .badge-back {
+      position: absolute; inset: 0; backface-visibility: hidden; border-radius: 24px;
+      padding: 1.5rem; display: flex; flex-direction: column; background: #FFFFFF;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: inset 0 1px 4px rgba(255,255,255,0.8), 0 8px 20px rgba(0,0,0,0.08);
+    }
+    .badge-back {
+      transform: rotateY(180deg); background: #FEFCF9; border: 1px solid #e2dbd0;
+    }
+    .badge-front .badge-header {
+      font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: #5e5852; margin-bottom: 1rem; font-weight: 600;
+    }
+    .photo-frame {
+      width: 150px; height: 150px; background: #e5dfd6; border-radius: 50%;
+      margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center;
+      color: #7f7770; font-size: 0.7rem; font-weight: 500;
+      border: 2px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.05); overflow: hidden;
+    }
+    .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+    .badge-name { font-weight: 700; font-size: 1.1rem; margin-bottom: 0.25rem; color: #1A1A1A; }
+    .badge-role { font-size: 0.8rem; color: #5e5852; margin-bottom: 0.5rem; font-weight: 500; }
+    .badge-detail { font-size: 0.75rem; color: #3d3a36; line-height: 1.5; margin-top: 0.25rem; }
+    .barcode {
+      margin-top: auto; height: 30px;
+      background: repeating-linear-gradient(90deg, #2D2A26 0px, #2D2A26 2px, transparent 2px, transparent 6px);
+      width: 80%; opacity: 0.5; border-radius: 2px;
+    }
+    .badge-back .contact-item {
+      font-size: 0.75rem; margin-bottom: 0.6rem; color: #2D2A26;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .who-text h2 {
+      font-size: 3rem; font-weight: 400; font-family: 'DM Serif Display', serif;
+      margin-bottom: 1.2rem; letter-spacing: -0.02em; color: #1A1A1A;
+    }
+    .who-text h3 { font-size: 1.3rem; font-weight: 500; margin-bottom: 1rem; color: #2D2A26; }
+    .who-text p {
+      font-size: 1rem; color: #3d3a36; margin-bottom: 1.5rem;
+      max-width: 550px; line-height: 1.7;
+    }
+    .objective-block {
+      background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(4px);
+      padding: 1.5rem 2rem; border-left: 4px solid #2D2A26;
+      border-radius: 0 16px 16px 0; font-style: italic; font-size: 1rem;
+      color: #1A1A1A; margin-top: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    }
+
+    /* ---------- FULL PAGE SECTIONS (each on its own page) ---------- */
+    .page-section {
+      padding: 6rem 0 7rem;
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: #FAF8F5;
+      border-bottom: 1px solid #EFECE6;
+    }
+    .page-section:nth-child(even) {
+      background: #F5F2EB;
+    }
+    .page-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #8f8880;
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+    .page-title {
+      font-size: clamp(3rem, 7vw, 5rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: #1A1A1A;
+      line-height: 1.05;
+      margin-bottom: 3.5rem;
+      max-width: 1000px;
+    }
+    .page-title em {
+      font-family: 'DM Serif Display', serif;
+      font-weight: 400;
+      font-style: italic;
+      letter-spacing: -0.02em;
+      color: #5e5852;
+    }
+
+    /* ---------- CONTENT GRID ---------- */
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.8rem;
+    }
+    .content-block {
+      background: #FFFFFF;
+      border: 1px solid #EFECE6;
+      border-radius: 20px;
+      padding: 2rem 1.8rem;
+      transition: transform 0.25s, box-shadow 0.3s;
+      box-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.05);
+    }
+    .content-block:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.1);
+      border-color: #ddd6cc;
+    }
+    .content-block h3 {
+      font-size: 1.15rem; font-weight: 700; margin-bottom: 1rem;
+      color: #1A1A1A; letter-spacing: -0.01em;
+    }
+    .content-block .sub {
+      font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: #8f8880; margin-bottom: 0.5rem; font-weight: 600;
+    }
+    .content-block .meta {
+      font-size: 0.8rem; color: #7e7870;
+      display: flex; justify-content: space-between;
+      gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem;
+    }
+    .content-block .detail {
+      font-size: 0.88rem; color: #3d3a36; line-height: 1.7;
+    }
+    .content-block .detail p + p { margin-top: 0.8rem; }
+
+    /* ---------- SKILLS PERIODIC TABLE ---------- */
+    .skills-table {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 0.6rem;
+      margin-top: 2rem;
+    }
+    .skill-cell {
+      background: #FFFFFF;
+      border: 1px solid #EFECE6;
+      border-radius: 12px;
+      padding: 0.8rem 0.4rem;
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      cursor: default;
+      min-height: 90px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .skill-cell:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 12px 20px -8px rgba(0,0,0,0.15);
+      background: #2D2A26;
+      color: #fff;
+      z-index: 2;
+    }
+    .skill-cell:hover .symbol,
+    .skill-cell:hover .skill-name,
+    .skill-cell:hover .category { color: #fff; }
+    .skill-cell .num {
+      font-size: 0.55rem; color: #8f8880; text-align: left;
+      padding-left: 0.3rem; margin-bottom: 0.2rem; font-weight: 500;
+    }
+    .skill-cell .symbol {
+      font-size: 1.3rem; font-weight: 800; color: #1A1A1A;
+      letter-spacing: -0.03em; line-height: 1.1;
+    }
+    .skill-cell .skill-name {
+      font-size: 0.6rem; color: #5e5852; margin-top: 0.3rem;
+      font-weight: 500; line-height: 1.2;
+    }
+    .skill-cell .category {
+      font-size: 0.5rem; text-transform: uppercase; letter-spacing: 0.1em;
+      color: #8f8880; margin-top: 0.2rem; font-weight: 600;
+    }
+
+    /* ---------- SKILL FILTER CHIPS ---------- */
+    .filter-chips {
+      display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem; margin-bottom: 1rem;
+    }
+    .chip {
+      padding: 0.5rem 1.2rem; border-radius: 50px;
+      background: #FFFFFF; border: 1px solid #e0dad2;
+      font-size: 0.78rem; font-weight: 500; color: #1A1A1A;
+      transition: background 0.2s, color 0.2s;
+      cursor: default;
+    }
+    .chip.active { background: #1A1A1A; color: #fff; border-color: #1A1A1A; }
+
+    /* ---------- WORK SHOWCASE (like reference) ---------- */
+    .work-showcase {
+      display: flex;
+      gap: 1.2rem;
+      overflow-x: auto;
+      padding-bottom: 1.5rem;
+      scrollbar-width: thin;
+    }
+    .work-card {
+      flex: 0 0 420px;
+      background: #FFFFFF;
+      border: 1px solid #EFECE6;
+      border-radius: 24px;
+      padding: 2rem;
+      transition: transform 0.25s, box-shadow 0.3s;
+      box-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.05);
+    }
+    .work-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.1);
+    }
+    .work-card .tag {
+      font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: #8f8880; margin-bottom: 0.5rem; font-weight: 600;
+    }
+    .work-card h3 {
+      font-size: 1.6rem; font-weight: 800; margin-bottom: 0.8rem;
+      color: #1A1A1A; letter-spacing: -0.02em; line-height: 1.15;
+    }
+    .work-card .role {
+      font-size: 0.85rem; color: #5e5852; margin-bottom: 1rem; font-weight: 500;
+    }
+    .work-card .detail {
+      font-size: 0.85rem; color: #3d3a36; line-height: 1.65;
+      margin-bottom: 1rem;
+    }
+    .work-card .tech {
+      display: flex; flex-wrap: wrap; gap: 0.4rem;
+    }
+    .work-card .tech span {
+      font-size: 0.7rem; background: #EFECE6; padding: 0.3rem 0.8rem;
+      border-radius: 50px; color: #2D2A26; font-weight: 500;
+    }
+
+    /* ---------- TIMELINE (experience) ---------- */
+    .timeline {
+      position: relative;
+      padding-left: 2.5rem;
+      margin-top: 2rem;
+    }
+    .timeline::before {
+      content: ''; position: absolute; left: 8px; top: 8px; bottom: 8px;
+      width: 2px; background: #d9d2c5;
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 3rem;
+    }
+    .timeline-item::before {
+      content: ''; position: absolute; left: -2.5rem; top: 0.4rem;
+      width: 18px; height: 18px; border-radius: 50%;
+      background: #1A1A1A; border: 3px solid #FAF8F5;
+      box-shadow: 0 0 0 2px #1A1A1A;
+    }
+    .timeline-item .tl-date {
+      font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: #8f8880; margin-bottom: 0.5rem; font-weight: 600;
+    }
+    .timeline-item .tl-title {
+      font-size: 1.6rem; font-weight: 800; color: #1A1A1A;
+      letter-spacing: -0.02em; margin-bottom: 0.3rem; line-height: 1.2;
+    }
+    .timeline-item .tl-role {
+      font-size: 0.9rem; color: #5e5852; margin-bottom: 0.8rem; font-weight: 500;
+    }
+    .timeline-item .tl-detail {
+      font-size: 0.88rem; color: #3d3a36; line-height: 1.7;
+      max-width: 750px;
+    }
+    .timeline-item .tl-tag {
+      display: inline-block; font-size: 0.68rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #5e5852;
+      border: 1px solid #d9d2c5; border-radius: 50px;
+      padding: 0.25rem 0.9rem; margin-left: 0.8rem; font-weight: 600;
+      vertical-align: middle;
+    }
+
+    /* ---------- CONTACT ---------- */
+    .contact-section {
+      background: #F5F2EB; padding: 5rem 0 3rem; border-top: 1px solid #e5dfd6;
+    }
+    .contact-content { display: flex; flex-direction: column; align-items: center; text-align: center; }
+    .contact-content h2 {
+      font-family: 'DM Serif Display', serif; font-size: 2.8rem;
+      font-weight: 400; margin-bottom: 1rem; color: #1A1A1A;
+    }
+    .contact-details {
+      display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center;
+      margin: 2rem 0 2.5rem; font-size: 1rem; color: #2D2A26;
+    }
+    .contact-details span { display: flex; align-items: center; gap: 0.5rem; }
+    .social-links { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+    .social-btn {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: #FFFFFF; border: 1px solid #e0dad2; padding: 0.8rem 1.8rem;
+      border-radius: 50px; text-decoration: none; color: #1A1A1A;
+      font-size: 0.9rem; font-weight: 500;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    }
+    .social-btn:hover {
+      background: #2D2A26; color: #fff; border-color: #2D2A26; transform: translateY(-2px);
+    }
+    .footer-note {
+      text-align: center; margin-top: 3rem; font-size: 0.8rem;
+      color: #8f8880; letter-spacing: 0.02em;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 1024px) {
+      .skills-table { grid-template-columns: repeat(6, 1fr); }
+    }
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .badge-wrapper { order: 2; }
+      .who-text { order: 1; text-align: center; }
+      .who-text p { margin-left: auto; margin-right: auto; }
+      .objective-block { text-align: left; }
+      .top-bar { flex-direction: column; gap: 0.8rem; align-items: flex-start; }
+      .nav-links { flex-wrap: wrap; gap: 1.2rem; }
+      .hero-content { right: 1.5rem; width: calc(100% - 3rem); }
+      .hero-title { font-size: 2.4rem; }
+      .page-title { font-size: 2.6rem; }
+      .skills-table { grid-template-columns: repeat(4, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .container { padding: 0 1.2rem; }
+      .hero-content { right: 1.2rem; bottom: 2rem; width: calc(100% - 2.4rem); }
+      .hero-sub { font-size: 0.62rem; line-height: 1.5; }
+      .hero-title { font-size: 1.9rem; }
+      .badge-card { width: 260px; height: 390px; }
+      .hero-buttons .pill-btn { padding: 0.7rem 1.4rem; font-size: 0.8rem; }
+      .skills-table { grid-template-columns: repeat(3, 1fr); }
+      .work-card { flex: 0 0 85vw; }
+      .timeline-item .tl-title { font-size: 1.3rem; }
+      .page-title { font-size: 2.2rem; }
+    }
+    .flip-hint {
+      font-size: 0.7rem; text-align: center; margin-top: 0.5rem;
+      color: #8b857e; letter-spacing: 0.05em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero">
+    <video class="hero-video-bg" autoplay loop muted playsinline>
+      <source src="assets/hero-background.mp4" type="video/mp4">
+    </video>
+    <button class="audio-toggle" type="button" aria-pressed="false">Enable voice</button>
+    <div class="hero-overlay-text">
+      <span class="giant-outline">VASANTHA REENA</span>
+    </div>
+    <div class="top-bar">
+      <div class="logo">Vasantha Reena Dasareddi</div>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#work">Work</a>
+        <a href="#experience">Experience</a>
+        <a href="#achievements">Achievements</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+    <div class="hero-content">
+      <div class="hero-sub">Vasantha Reena Dasareddi</div>
+      <h1 class="hero-title">
+        Computer Science <span class="light">Engineer.</span><br>
+        AI & Full-Stack Developer.
+      </h1>
+      <div class="hero-buttons">
+        <a href="#work" class="pill-btn">Explore Work</a>
+        <a href="#contact" class="pill-btn outline">Let's Talk</a>
+        <a href="#" class="pill-btn outline" onclick="alert('Résumé download – placeholder'); return false;">Résumé ↓</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ABOUT / ID BADGE ========== -->
+  <section class="about-section" id="about">
+    <div class="container about-grid">
+      <div class="who-text">
+        <h2>Who I am.</h2>
+        <h3>Hi, I'm Vasantha.</h3>
+        <p>
+          A self-motivated Computer Science Engineering student passionate about turning complex algorithmic problems into real-world software solutions. From building AI-powered mock interview platforms to competing in national quantum hackathons, I focus on building intuitive, high-impact systems.
+        </p>
+        <div class="objective-block">
+          “Self-motivated student seeking an internship position in a good organization where my potentials will be fully discovered while working for the company dedicatedly.”
+        </div>
+      </div>
+      <div class="badge-wrapper">
+        <div class="lanyard-strap">
+          <div class="lanyard-track">
+            <div class="lanyard-text-item">VASANTHA REENA • CS ENGINEER • VASANTHA REENA • CS ENGINEER •&nbsp;</div>
+            <div class="lanyard-text-item">VASANTHA REENA • CS ENGINEER • VASANTHA REENA • CS ENGINEER •&nbsp;</div>
+          </div>
+        </div>
+        <div class="badge-card" id="badgeCard" onclick="this.classList.toggle('flipped')">
+          <div class="badge-inner">
+            <div class="badge-front">
+              <div class="badge-header">DEVELOPER ID</div>
+              <div class="photo-frame">
+                <img src="assets/potphoto.jpeg" alt="Vasantha Reena Dasareddi">
+              </div>
+              <div class="badge-name">Vasantha Reena Dasareddi</div>
+              <div class="badge-role">Software Engineering Student</div>
+              <div class="badge-detail">Department: CSE</div>
+              <div class="badge-detail">Pragati Engineering College</div>
+              <div class="badge-detail">Valid Till: 2028</div>
+              <div class="barcode"></div>
+              <div class="flip-hint">click to flip ↻</div>
+            </div>
+            <div class="badge-back">
+              <div class="badge-header" style="margin-bottom:0.8rem;">QUICK CONTACT</div>
+              <div class="contact-item">📧 24a31a0506@pragati.ac.in</div>
+              <div class="contact-item">📧 vasanthareenamfsij@gmail.com</div>
+              <div class="contact-item">📞 +91 8008950017</div>
+              <div class="contact-item">📍 Burja, Srikakulam, AP</div>
+              <div style="margin-top:auto; font-size:0.65rem; opacity:0.5; text-align:center;">ID • VASANTHA REENA DASAREDDI</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 01 · EDUCATION (FULL PAGE) ========== -->
+  <section class="page-section" id="education">
+    <div class="container">
+      <div class="page-label">01 — Education</div>
+      <h2 class="page-title">Where I <em>learned.</em></h2>
+      <div class="content-grid">
+
+        <div class="content-block">
+          <div class="sub">Degree</div>
+          <h3>B.E. Computer Science Engineering</h3>
+          <div class="meta"><span>Pragati Engineering College, Kakinada</span><span>July 2024 – Present</span></div>
+          <div class="detail">
+            <p>Pursuing a comprehensive Computer Science Engineering degree with a current CGPA of 7.8/10 up to the 3rd semester. The curriculum covers core subjects including Data Structures & Algorithms, Object-Oriented Programming, Database Management Systems, Operating Systems, and Computer Networks.</p>
+            <p>Actively involved in coding clubs, technical workshops, and peer-learning sessions that strengthen both theoretical understanding and practical implementation skills.</p>
+          </div>
+        </div>
+
+        <div class="content-block">
+          <div class="sub">Intermediate</div>
+          <h3>Intermediate Education (MPC)</h3>
+          <div class="meta"><span>Sri Chaitanya Junior College</span><span>2022 – 2024</span></div>
+          <div class="detail">
+            <p>Completed intermediate education with a focus on Mathematics, Physics, and Chemistry, achieving an overall score of 88%. Built a strong analytical foundation through rigorous problem-solving in mathematics and physics, which directly supports advanced computing concepts.</p>
+            <p>Participated in science fairs and quiz competitions, developing early interest in technology and logical reasoning.</p>
+          </div>
+        </div>
+
+        <div class="content-block">
+          <div class="sub">Schooling</div>
+          <h3>SSC (Class X)</h3>
+          <div class="meta"><span>Sri Chaitanya Techno School</span><span>2021 – 2022</span></div>
+          <div class="detail">
+            <p>Secured 94% in the Secondary School Certificate examination, demonstrating consistent academic excellence across all subjects. Developed foundational skills in mathematics, science, and computer basics during this period.</p>
+            <p>Actively participated in school-level coding activities and group projects, sparking a lasting passion for software development.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 02 · SKILLS (FULL PAGE) ========== -->
+  <section class="page-section" id="skills">
+    <div class="container">
+      <div class="page-label">02 — Skills</div>
+      <h2 class="page-title">The periodic table of my <em>stack.</em></h2>
+
+      <div class="filter-chips">
+        <span class="chip active">All 12</span>
+        <span class="chip">Languages 3</span>
+        <span class="chip">Frontend 4</span>
+        <span class="chip">Backend 2</span>
+        <span class="chip">Databases 2</span>
+        <span class="chip">Tools 1</span>
+      </div>
+
+      <div class="skills-table">
+        <div class="skill-cell">
+          <div class="num">1</div>
+          <div class="symbol">Py</div>
+          <div class="skill-name">Python</div>
+          <div class="category">Languages</div>
+        </div>
+        <div class="skill-cell">
+          <div class="num">2</div>
+          <div class="symbol">Ja</div>
+          <div class="skill-name">Java</div>
+          <div class="category">Languages</div>
+        </div>
+        <div class="skill-cell">
+          <div class="num">3</div>
+          <div class="symbol">Ts</div>
+          <div class="skill-name">TypeScript</div>
+          <div class="category">Languages</div>
+        </div>
+        <div class="skill-cell">
+          <div class="num">4</div>
+          <div class="symbol">Sq</div>
+          <div class="skill-name">SQL</div>
+          <div class="category">Databases</div>
+        </div>
+        <div class="skill-cell">
+          <div class="num">5</div>
+          <div class="symbol">Ht</div>
+          <div class="skill-name">HTML5</div>
+          <div class="category">Frontend</div>
+        </div>
+        <div class="skill-cell">
+          <div class="num">6</div>
+          <div class="symbol">Cs</div>
+          <div class="skill-name">CSS3</div>
+          <div class="category">Frontend</div>
+        </div>
+        <div class="skill-cell">
+          <div class="num">7</div>
+          <div class="symbol">Re</div>
+          <div class="skill-name">React</div>
+          <div class="category">Frontend</div>
+        </div>
+        <div class="skill-cell">
+          <div class="num">8</div>
+          <div class="symbol">Tw</div>
+          <div class="skill-name">Tailwind CSS</div>
+          <div class="category">Frontend</div>
+        </div>
+        <div class="skill-cell">
+          <div class="num">9</div>
+          <div class="symbol">No</div>
+          <div class="skill-name">Node.js</div>
+          <div class="category">Backend</div>
+        </div>
+        <div class="skill-cell">
+          <div class="num">10</div>
+          <div class="symbol">Ex</div>
+          <div class="skill-name">Express</div>
+          <div class="category">Backend</div>
+        </div>
+        <div class="skill-cell">
+          <div class="num">11</div>
+          <div class="symbol">Pg</div>
+          <div class="skill-name">PostgreSQL</div>
+          <div class="category">Databases</div>
+        </div>
+        <div class="skill-cell">
+          <div class="num">12</div>
+          <div class="symbol">Gt</div>
+          <div class="skill-name">Git / GitHub</div>
+          <div class="category">Tools</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 03 · WORK / PROJECTS (FULL PAGE) ========== -->
+  <section class="page-section" id="work">
+    <div class="container">
+      <div class="page-label">03 — Selected Work</div>
+      <h2 class="page-title">Things I've <em>built.</em></h2>
+
+      <div class="work-showcase">
+
+        <!-- CSE Academic Portal -->
+        <div class="work-card">
+          <div class="tag">01 · Academic Platform</div>
+          <h3>CSE Academic & Career Guide Portal</h3>
+          <div class="role">Dual-purpose educational platform</div>
+          <div class="detail">
+            <p>Designed and developed a dual-purpose web platform that bridges the gap between academic curriculum and industry career preparation for over 100+ first-year CSE students.</p>
+            <p>The portal provides structured resources for semester subjects, recommended certifications, and step-by-step career roadmaps for roles like full-stack developer, data scientist, and cloud engineer.</p>
+            <p>Built with a focus on intuitive navigation, responsive design, and scalable content architecture to support continuous updates and student feedback.</p>
+          </div>
+          <div class="tech"><span>Web</span><span>Education</span><span>Content Architecture</span></div>
+        </div>
+
+        <!-- AI Mock Interview -->
+        <div class="work-card">
+          <div class="tag">02 · AI Platform</div>
+          <h3>AI Mock Interview Platform</h3>
+          <div class="role">React, TypeScript, Tailwind CSS, AI APIs</div>
+          <div class="detail">
+            <p>Created an interactive AI-powered mock interview platform that allows users to upload their resume and participate in real-time video/audio interview simulations.</p>
+            <p>The system analyzes resume content, generates role-specific questions, and provides instant feedback on answers using speech-to-text and natural language processing.</p>
+            <p>Frontend built with React, TypeScript, and Tailwind CSS for a seamless, modern user experience; backend integrates AI APIs for dynamic question generation and performance scoring.</p>
+          </div>
+          <div class="tech"><span>React</span><span>TypeScript</span><span>Tailwind</span><span>AI APIs</span></div>
+        </div>
+
+        <!-- LeetLogic -->
+        <div class="work-card">
+          <div class="tag">03 · Founder</div>
+          <h3>LeetLogic — Founder & Lead Developer</h3>
+          <div class="role">Coding Education Initiative</div>
+          <div class="detail">
+            <p>Founded LeetLogic, a peer-driven coding education initiative aimed at helping students master data structures and algorithms through structured problem-solving tracks.</p>
+            <p>Curated a library of 200+ LeetCode-style problems with detailed explanations, optimized solutions, and complexity analysis for each.</p>
+            <p>Leading a small team of contributors to build a supportive learning community, organize weekly coding challenges, and mentor juniors in competitive programming.</p>
+          </div>
+          <div class="tech"><span>DSA</span><span>Community</span><span>Mentorship</span></div>
+        </div>
+
+        <!-- Engineering Branch Guide -->
+        <div class="work-card">
+          <div class="tag">04 · Career Guidance</div>
+          <h3>Engineering Branch Guide — Choosing Your Ideal Future</h3>
+          <div class="role">Career Guidance Platform</div>
+          <div class="detail">
+            <p>Developed a comprehensive guidance platform designed to help intermediate students and first-year engineering aspirants choose the right engineering branch based on their interests, strengths, and market demand.</p>
+            <p>The platform includes detailed comparisons of branches like CSE, ECE, Mechanical, Civil, and AI/ML, along with real-world career paths, salary insights, and skill requirements.</p>
+            <p>Integrated a self-assessment quiz that recommends suitable branches by analyzing user responses, making career decision-making more data-driven and personalized.</p>
+          </div>
+          <div class="tech"><span>Guidance</span><span>Quiz</span><span>Career Paths</span></div>
+        </div>
+
+        <!-- YieldLogic -->
+        <div class="work-card">
+          <div class="tag">05 · AgriTech</div>
+          <h3>YieldLogic — Tech for Farmers' Wellbeing</h3>
+          <div class="role">AgriTech · Social Impact Project</div>
+          <div class="detail">
+            <p>Built YieldLogic, a technology-driven solution focused on improving the wellbeing and productivity of farmers through data-informed decision-making.</p>
+            <p>The platform provides crop recommendation based on soil type, weather patterns, and regional yield data, helping farmers choose the most viable crops each season.</p>
+            <p>Also includes a market price tracker and alert system that notifies farmers about optimal selling windows, reducing exploitation by middlemen and increasing profit margins.</p>
+          </div>
+          <div class="tech"><span>AgriTech</span><span>Data</span><span>Social Impact</span></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 04 · EXPERIENCE / INTERNSHIPS (FULL PAGE) ========== -->
+  <section class="page-section" id="experience">
+    <div class="container">
+      <div class="page-label">04 — Experience</div>
+      <h2 class="page-title">Where I've <em>been.</em></h2>
+
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="tl-date">May 2025 – June 2025 <span class="tl-tag">Internship</span></div>
+          <div class="tl-title">Google AI ML Virtual Internship</div>
+          <div class="tl-role">Google · Remote</div>
+          <div class="tl-detail">
+            Completed a rigorous virtual internship focused on Artificial Intelligence and Machine Learning fundamentals, organized by Google. Gained hands-on experience with TensorFlow, model training, evaluation metrics, and real-world ML pipelines. Worked on guided projects involving image classification and natural language processing, culminating in a capstone project that demonstrated end-to-end ML workflow understanding.
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="tl-date">Jan 2026 – Feb 2026 <span class="tl-tag">Internship</span></div>
+          <div class="tl-title">BCG’s GenAI Job Simulation</div>
+          <div class="tl-role">Boston Consulting Group · Remote</div>
+          <div class="tl-detail">
+            Participated in BCG’s Generative AI Job Simulation, gaining practical exposure to how AI is applied in consulting and business strategy. Completed tasks involving prompt engineering, AI-driven data analysis, and ethical considerations in deploying generative models. Developed a strong understanding of how cross-functional teams leverage AI to solve complex business problems and deliver client value.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 05 · ACHIEVEMENTS (FULL PAGE) ========== -->
+  <section class="page-section" id="achievements">
+    <div class="container">
+      <div class="page-label">05 — Achievements</div>
+      <h2 class="page-title">Moments I'm <em>proud of.</em></h2>
+
+      <div class="content-grid">
+
+        <div class="content-block">
+          <div class="sub">Winner · Sept 2025</div>
+          <h3>Intovatex on Engineers Day</h3>
+          <div class="detail">
+            <p>Secured first place at Intovatex, a competitive innovation showcase held on Engineers Day, for presenting a novel solution addressing a real-world problem.</p>
+            <p>The winning project demonstrated strong technical implementation, clear problem articulation, and practical feasibility.</p>
+            <p>Recognized by faculty and industry judges for creativity, execution quality, and potential for real-world impact.</p>
+          </div>
+        </div>
+
+        <div class="content-block">
+          <div class="sub">Participant · Dec 2025</div>
+          <h3>Quantum Hackathon — Teckzite’25 2.0</h3>
+          <div class="meta"><span>RGUKT Nuzvid</span><span>December 2025</span></div>
+          <div class="detail">
+            <p>Competed in the Quantum Hackathon at Teckzite’25 2.0 hosted by RGUKT Nuzvid, collaborating with a team to solve quantum computing-inspired challenges.</p>
+            <p>Gained exposure to quantum algorithms, qubit logic, and emerging computing paradigms through intensive problem-solving rounds.</p>
+            <p>Strengthened teamwork, time management, and rapid prototyping skills while competing against teams from across the region.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT ========== -->
+  <section class="contact-section" id="contact">
+    <div class="container contact-content">
+      <h2>Let's connect.</h2>
+      <p style="color:#5e5852; max-width:500px;">Open for internships, collaborations, and creative tech projects.</p>
+      <div class="contact-details">
+        <span>📧 24a31a0506@pragati.ac.in</span>
+        <span>📧 vasanthareenamfsij@gmail.com</span>
+        <span>📞 +91 8008950017</span>
+        <span>📍 Srikakulam, Andhra Pradesh</span>
+      </div>
+      <div class="social-links">
+        <a href="https://www.linkedin.com/in/vasanthareena" class="social-btn" target="_blank" rel="noopener">🔗 LinkedIn</a>
+        <a href="https://github.com/vasantha2908" class="social-btn" target="_blank" rel="noopener">🐙 GitHub</a>
+        <a href="https://leetcode.com/u/Kqcnfmsrnl/" class="social-btn" target="_blank" rel="noopener">📘 LeetCode</a>
+        <a href="https://www.hackerrank.com/profile/24A31A0506" class="social-btn" target="_blank" rel="noopener">🏅 HackerRank</a>
+      </div>
+      <div class="footer-note">
+        © 2025 Vasantha Reena Dasareddi · crafted with intention
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const hero = document.querySelector('.hero');
+    const heroVideo = document.querySelector('.hero-video-bg');
+    if (hero && heroVideo) {
+      const audioToggle = document.querySelector('.audio-toggle');
+      audioToggle.addEventListener('click', () => {
+        heroVideo.muted = !heroVideo.muted;
+        audioToggle.textContent = heroVideo.muted ? 'Enable voice' : 'Mute voice';
+        audioToggle.setAttribute('aria-pressed', String(!heroVideo.muted));
+        if (!heroVideo.muted) heroVideo.play().catch(() => {});
+      });
+
+      const heroObserver = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) {
+          heroVideo.play().catch(() => {});
+        } else {
+          heroVideo.pause();
+        }
+      }, { threshold: 0.15 });
+      heroObserver.observe(hero);
+    }
+
+    const badge = document.getElementById('badgeCard');
+    if (badge) {
+      badge.addEventListener('mouseenter', () => {
+        if (window.matchMedia('(hover: hover)').matches) {
+          badge.classList.add('flipped');
+        }
+      });
+      badge.addEventListener('mouseleave', () => {
+        if (window.matchMedia('(hover: hover)').matches) {
+          badge.classList.remove('flipped');
+        }
+      });
+    }
+  </script>
+</body>
+</html>
